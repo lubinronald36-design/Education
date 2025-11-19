@@ -1,29 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grammar Exercise</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div class="container">
-    <h1>Grammar Exercise</h1>
-    <div class="question-container">
-      <p id="question"></p>
-      <label for="answer">Your answer:</label>
-      <input type="text" id="answer" placeholder="Enter your answer here" />
-      <button id="submit" aria-label="Submit your answer">Submit</button>
-      <button id="next" aria-label="Move to the next question">Next</button>
-    </div>
-    <div class="progress-container">
-      <p id="progress"></p>
-    </div>
-    <div class="results-container" style="display: none;">
-      <h2>Results</h2>
-      <ul id="results"></ul>
-    </div>
-  </div>
-  <script src="script.js"></script>
-</body>
-</html>
+
+We'll create a basic quiz format with questions, options, and answers. We'll use JavaScript to check the answers.
+
+Here's the code:
+
+<div id="quiz-container">
+ <div id="question"></div>
+ <div id="options"></div>
+ <button id="submit">Submit</button>
+ <div id="result"></div>
+</div>
+
+<script>
+ const questions =;
+
+ let currentQuestion = 0;
+ let score = 0;
+
+ function displayQuestion() {
+ const questionElement = document.getElementById("question");
+ const optionsElement = document.getElementById("options");
+ questionElement.innerText = questions.question;
+ optionsElement.innerHTML = "";
+ questions.options.forEach(option => {
+ const button = document.createElement("button");
+ button.innerText = option;
+ button.onclick = checkAnswer;
+ optionsElement.appendChild(button);
+ });
+ }
+
+ function checkAnswer(event) {
+ const selectedAnswer = event.target.innerText;
+ if (selectedAnswer === questions.answer) {
+ score++;
+ document.getElementById("result").innerText = "Correct!";
+ } else {
+ document.getElementById("result").innerText = `Incorrect! The correct answer is ${questions.answer}.`;
+ }
+ currentQuestion++;
+ if (currentQuestion >= questions.length) {
+ document.getElementById("question").innerText = "Quiz finished!";
+ document.getElementById("options").innerHTML = "";
+ document.getElementById("submit").style.display = "none";
+ document.getElementById("result").innerText = `Your final score is ${score} out of ${questions.length}.`;
+ } else {
+ displayQuestion();
+ }
+ }
+
+ displayQuestion();
+</script>
