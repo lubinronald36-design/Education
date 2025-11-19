@@ -1,3 +1,5 @@
+
+
 function showResults() {
   document.querySelector(".question-container").style.display = "none";
   document.querySelector(".progress-container").style.display = "none";
@@ -5,26 +7,40 @@ function showResults() {
   const resultsList = document.getElementById("results");
   questions.forEach((question, index) => {
     const listItem = document.createElement("li");
-    listItem.innerText = Question ${index + 1}: ${question.question} | Your answer: ${userAnswers[index]} | Correct answer: ${question.answer};
+    listItem.innerText = `Question ${index + 1}: ${question.question} | Your answer: ${userAnswers[index]} | Correct answer: ${question.answer}`;
     resultsList.appendChild(listItem);
   });
 }
 
 document.getElementById("submit").addEventListener("click", () => {
-  userAnswers.push(getUserAnswer());
-  if (currentQuestion < questions.length - 1) {
-    currentQuestion++;
-    displayQuestion();
+  const userAnswer = getUserAnswer();
+  if (userAnswer.trim() !== "") {
+    userAnswers.push(userAnswer);
+    if (currentQuestion < questions.length - 1) {
+      currentQuestion++;
+      displayQuestion();
+      document.getElementById("answer").value = "";
+    } else {
+      showResults();
+    }
   } else {
-    showResults();
+    alert("Please enter an answer");
   }
 });
 
 document.getElementById("next").addEventListener("click", () => {
-  if (currentQuestion < questions.length - 1) {
-    userAnswers.push(getUserAnswer());
-    currentQuestion++;
-    displayQuestion();
+  const userAnswer = getUserAnswer();
+  if (userAnswer.trim() !== "") {
+    userAnswers.push(userAnswer);
+    if (currentQuestion < questions.length - 1) {
+      currentQuestion++;
+      displayQuestion();
+      document.getElementById("answer").value = "";
+    } else {
+      showResults();
+    }
+  } else {
+    alert("Please enter an answer");
   }
 });
 
