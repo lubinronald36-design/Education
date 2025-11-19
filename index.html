@@ -11,9 +11,10 @@
     <h1>Grammar Exercise</h1>
     <div class="question-container">
       <p id="question"></p>
-      <input type="text" id="answer" />
-      <button id="submit">Submit</button>
-      <button id="next">Next</button>
+      <label for="answer">Your answer:</label>
+      <input type="text" id="answer" placeholder="Enter your answer here" />
+      <button id="submit" aria-label="Submit your answer">Submit</button>
+      <button id="next" aria-label="Move to the next question">Next</button>
     </div>
     <div class="progress-container">
       <p id="progress"></p>
